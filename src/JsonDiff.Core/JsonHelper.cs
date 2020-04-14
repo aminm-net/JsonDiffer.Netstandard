@@ -8,11 +8,13 @@ namespace JsonDiff.Core
     {
         public static JToken Difference(this JToken first, JToken second)
         {
-            var difference = JToken.Parse("{}");
-
             if (first == null || second == null || JToken.DeepEquals(first, second)) return null;
 
+            if (second.GetType() != first.GetType()) throw new InvalidOperationException($"Operands type must match. '{first.GetType().Name}' vs '{second.GetType().Name}'");
+
             var propertyNames = (first?.Children() ?? default).Union((second?.Children() ?? default))?.Select(_ => ((JProperty)_).Name).Distinct();
+
+            var difference = JToken.Parse("{}");
 
             foreach (var property in propertyNames)
             {
