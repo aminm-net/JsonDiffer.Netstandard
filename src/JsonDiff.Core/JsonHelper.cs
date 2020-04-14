@@ -8,16 +8,34 @@ namespace JsonDiff.Core
     {
         public static JToken Difference(this JToken first, JToken second)
         {
+            var difference = JToken.Parse("{}");
+
             if (first == null || second == null || JToken.DeepEquals(first, second)) return null;
 
-            if (second.GetType() != first.GetType()) throw new InvalidOperationException($"Operands type must match. '{first.GetType().Name}' vs '{second.GetType().Name}'");
+            if (second.GetType() != first.GetType()) throw new InvalidOperationException($"Operands' type must match. '{first.GetType().Name}' vs '{second.GetType().Name}'");
 
-            var propertyNames = (first?.Children() ?? default).Union((second?.Children() ?? default))?.Select(_ => ((JProperty)_).Name).Distinct();
+            var propertyNames = (first?.Children() ?? default).Union((second?.Children() ?? default))?.Select(_ => (_ as JProperty)?.Name).Distinct();
 
-            var difference = JToken.Parse("{}");
+            if (!propertyNames.Any() && (first is JValue || second is JValue))
+            {
+                return /*(first == null) ? second : */first;
+            }
 
             foreach (var property in propertyNames)
             {
+                if (property == null)
+                {
+                    if (second == null)
+                    {
+                        difference = second;
+                    }
+                    else
+                    {
+                        difference = first;
+                    }
+                    continue;
+                }
+
                 if (first?[property] == null)
                 {
                     var secondVal = second?[property]?.Parent as JProperty;
@@ -54,7 +72,7 @@ namespace JsonDiff.Core
 
                     var diffrence = Difference(firstsItem, secondsItem);
 
-                    if (diffrence.Count() > 0)
+                    if (diffrence != null /*&& diffrence.Count() > 0*/)
                     {
                         difference[$"{mode}{property}"] = diffrence;
                     }
@@ -75,13 +93,13 @@ namespace JsonDiff.Core
 
                         var diff = Difference(firstsItem, secondsItem);
 
-                        if (diff.Count() > 0)
+                        if (diff!=null)
                         {
                             difrences.Add(diff);
                         }
                     }
 
-                    if (difrences.Count() > 0)
+                    if (difrences.HasValues)
                     {
                         difference[$"{mode}{property}"] = difrences;
                     }
