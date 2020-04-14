@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonDiff.Core", "src\JsonDiff.Core\JsonDiff.Core.csproj", "{6B35C8F3-C82E-466A-9BBE-EC4322763A5F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".tests", ".tests", "{3E6CD959-B817-4C09-99AE-E1B861FE08B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonDiff.Core.Tests", "src\JsonDiff.Core.Tests\JsonDiff.Core.Tests.csproj", "{FA646FB0-5185-42B5-B635-833A374582CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B35C8F3-C82E-466A-9BBE-EC4322763A5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B35C8F3-C82E-466A-9BBE-EC4322763A5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B35C8F3-C82E-466A-9BBE-EC4322763A5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B35C8F3-C82E-466A-9BBE-EC4322763A5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA646FB0-5185-42B5-B635-833A374582CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA646FB0-5185-42B5-B635-833A374582CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA646FB0-5185-42B5-B635-833A374582CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA646FB0-5185-42B5-B635-833A374582CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FA646FB0-5185-42B5-B635-833A374582CA} = {3E6CD959-B817-4C09-99AE-E1B861FE08B8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {33608BB5-F3E7-4A7C-AD68-56022D613893}
+	EndGlobalSection
+EndGlobal
