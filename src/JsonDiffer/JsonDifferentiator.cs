@@ -12,7 +12,8 @@ namespace JsonDiffer
 
             if (first == null || second == null || JToken.DeepEquals(first, second)) return null;
 
-            if (second.GetType() != first.GetType()) throw new InvalidOperationException($"Operands' types must match. '{first.GetType().Name}' <> '{second.GetType().Name}'");
+            if (second.GetType() != first.GetType()) 
+                throw new InvalidOperationException($"Operands' types must match. '{first.GetType().Name}' <> '{second.GetType().Name}'");
 
             var propertyNames = (first?.Children() ?? default).Union((second?.Children() ?? default))?.Select(_ => (_ as JProperty)?.Name).Distinct();
 
@@ -76,8 +77,8 @@ namespace JsonDiffer
                     {
                         difference[$"{mode}{property}"] = diffrence;
                     }
-                    continue;
 
+                    continue;
                 }
 
                 if (first?[property] is JArray)

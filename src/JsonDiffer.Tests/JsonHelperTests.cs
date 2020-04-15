@@ -7,7 +7,7 @@ namespace JsonDiffer.Tests
     public class JsonHelperTests
     {
         [Fact]
-        public void JToken_diff_extention_should_work_as_it_should()
+        public void JToken_difference_extention_method_should_work_as_it_should()
         {
             // setup
             var j1 = JToken.Parse("{'id':1, 'foo':'bar'}");
