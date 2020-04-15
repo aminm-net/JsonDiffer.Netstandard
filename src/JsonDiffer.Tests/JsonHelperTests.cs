@@ -2,8 +2,9 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
 using Xunit;
+using JsonDiffer;
 
-namespace JsonDiff.Core.Tests
+namespace JsonDiffer.Tests
 {
     public class JsonHelperTests
     {
