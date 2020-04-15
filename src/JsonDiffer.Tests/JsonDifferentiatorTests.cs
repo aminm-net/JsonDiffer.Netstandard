@@ -78,19 +78,19 @@ namespace JsonDiffer.Tests
         }
 
         [Fact]
-        public void Result_should_be_null_when_either_of_operands_is_null()
+        public void Result_should_be_the_other_when_one_of_operands_is_null()
         {
             // setup
             var j1 = default(JToken);
-            var j2 = JToken.Parse("{}");
+            var j2 = JToken.Parse("{'x':1}");
 
             // act
             var diff1 = new JsonDifferentiator().Differentiate(j1,j2);
-            var diff2 = j2.Difference(j1);
+            var diff2 = new JsonDifferentiator().Differentiate(j2,j1);
 
             // assert
-            Assert.Null(diff1);
-            Assert.Null(diff2);
+            Assert.Equal(JToken.Parse("{'+x':1}"), diff1);
+            Assert.Equal(JToken.Parse("{'-x':1}"),diff2);
         }
 
         [Fact]
@@ -102,7 +102,7 @@ namespace JsonDiffer.Tests
 
             // act
             var diff12 = new JsonDifferentiator().Differentiate(j1,j2);
-            var diff21 = j2.Difference(j1);
+            var diff21 = new JsonDifferentiator().Differentiate(j2,j1);
 
             var expected12 = JToken.Parse("{'*foo':'bar'}");
             var expected21 = JToken.Parse("{'*foo':'baz'}");
@@ -142,7 +142,7 @@ namespace JsonDiffer.Tests
 
             // act
             var diff12 = new JsonDifferentiator().Differentiate(j1,j2);
-            var diff21 = j2.Difference(j1);
+            var diff21 = new JsonDifferentiator().Differentiate(j2,j1);
 
             // assert
             Assert.Equal(j1, diff12);
@@ -158,10 +158,28 @@ namespace JsonDiffer.Tests
 
             // act
             var diff12 = new JsonDifferentiator().Differentiate(j1,j2);
-            var diff21 = j2.Difference(j1);
+            var diff21 = new JsonDifferentiator().Differentiate(j2,j1);
 
-            var expected12 = JToken.Parse(Expected.Sample1Diffrencesample2);
-            var expected21 = JToken.Parse(Expected.Sample2Diffrencesample1);
+            var expected12 = JToken.Parse(Expected.Sample1DiffrenceSample2);
+            var expected21 = JToken.Parse(Expected.Sample2DiffrenceSample1);
+
+            // assert
+            Assert.True(JToken.DeepEquals(expected12, diff12));
+            Assert.True(JToken.DeepEquals(expected21, diff21));
+        }
+
+        [Fact]
+        public void Differenc_should_show_differences_for_all_objects_inside_Array()
+        {
+            // setup
+            var j1 = JToken.Parse("{'x':[{'foo':'bar'},{'baz':'qux'}]}");
+            var j2 = JToken.Parse("{'x':[{'foo':'quux'},{'corge':'grault'}]}");
+
+            // act
+            var diff12 = new JsonDifferentiator().Differentiate(j1, j2);
+            var diff21 = new JsonDifferentiator().Differentiate(j2, j1);
+            var expected12 = JToken.Parse("{'*x':[{'*foo':'bar'},{'-baz':'qux','+corge':'grault'}]}");
+            var expected21 = JToken.Parse("{'*x':[{'*foo':'quux'},{'+baz':'qux','-corge':'grault'}]}");
 
             // assert
             Assert.True(JToken.DeepEquals(expected12, diff12));

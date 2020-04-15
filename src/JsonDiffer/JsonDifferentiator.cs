@@ -10,9 +10,9 @@ namespace JsonDiffer
         {
             var difference = JToken.Parse("{}");
 
-            if (first == null || second == null || JToken.DeepEquals(first, second)) return null;
+            if (/*first == null || second == null || */JToken.DeepEquals(first, second)) return null;
 
-            if (second.GetType() != first.GetType()) 
+            if (first != null && second != null && first?.GetType() != second?.GetType()) 
                 throw new InvalidOperationException($"Operands' types must match. '{first.GetType().Name}' <> '{second.GetType().Name}'");
 
             var propertyNames = (first?.Children() ?? default).Union((second?.Children() ?? default))?.Select(_ => (_ as JProperty)?.Name).Distinct();

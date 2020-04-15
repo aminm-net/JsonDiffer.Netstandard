@@ -79,7 +79,7 @@ namespace JsonDiffer.Tests.Data
 
         public static class Expected
         {
-            public const string Sample1Diffrencesample2 = @"{
+            public const string Sample1DiffrenceSample2 = @"{
                            ""*destination_addresses"":[
                               ""Napa County, CA, USA"",
                               ""Napa County2, CA, USA"",
@@ -109,7 +109,7 @@ namespace JsonDiffer.Tests.Data
                               }
                            ]
                     }";
-            public const string Sample2Diffrencesample1 = @"{
+            public const string Sample2DiffrenceSample1 = @"{
                            ""*destination_addresses"":[
                               ""Washington, DC, USA"",
                               ""Napa County, CA, USA"",
