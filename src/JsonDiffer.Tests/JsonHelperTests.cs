@@ -166,15 +166,9 @@ namespace JsonDiff.Core.Tests
             // assert
             Assert.True(JToken.DeepEquals(expected12, diff12));
             Assert.True(JToken.DeepEquals(expected21, diff21));
-
-            var s1 = j1.ToString();
-            var s2 = j2.ToString();
-            var sd1 = expected12.ToString();
-            var sd2 = expected21.ToString();
         }
 
-
-        string json1 = @"{
+        readonly string json1 = @"{
                            ""destination_addresses"":[
                               ""Napa County, CA, USA"",
                               ""Napa County2, CA, USA"",
@@ -212,8 +206,7 @@ namespace JsonDiff.Core.Tests
                               }
                            ]
                     }";
-
-        string json2 = @"{
+        readonly string json2 = @"{
                            ""destination_addresses"":[
                               ""Washington, DC, USA"",
                               ""Napa County, CA, USA"",
@@ -245,8 +238,7 @@ namespace JsonDiff.Core.Tests
                               }
                            ]
                     }";
-
-        string j1DiffJ2 = @"{
+        readonly string j1DiffJ2 = @"{
                            ""*destination_addresses"":[
                               ""Napa County, CA, USA"",
                               ""Napa County2, CA, USA"",
@@ -276,8 +268,7 @@ namespace JsonDiff.Core.Tests
                               }
                            ]
                     }";
-
-        string j2DiffJ1 = @"{
+        readonly string j2DiffJ1 = @"{
                            ""*destination_addresses"":[
                               ""Washington, DC, USA"",
                               ""Napa County, CA, USA"",
