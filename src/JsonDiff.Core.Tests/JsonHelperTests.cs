@@ -8,7 +8,7 @@ namespace JsonDiff.Core.Tests
     public class JsonHelperTests
     {
         [Fact]
-        public void Differenc_should_prefix_modified_properties_with_asterisk_sign()
+        public void Modified_properties_should_prefixed_with_asterisk_symbol()
         {
             // setup
             var j1 = JToken.Parse("{'id':1, 'foo':'bar'}");
@@ -22,7 +22,7 @@ namespace JsonDiff.Core.Tests
         }
 
         [Fact]
-        public void Differenc_should_prefix_added_properties_with_plus_sign()
+        public void Added_properties_should_prefixed_with_plus_symbol()
         {
             // setup
             var j1 = JToken.Parse("{'id':1 }");
@@ -36,7 +36,7 @@ namespace JsonDiff.Core.Tests
         }
 
         [Fact]
-        public void Differenc_should_prefix_modified_properties_with_dash_sign()
+        public void Removed_properties_should_prefixed_with_dash_symbol()
         {
             // setup
             var j1 = JToken.Parse("{'id':1, 'foo':'bar'}");
@@ -50,7 +50,7 @@ namespace JsonDiff.Core.Tests
         }
 
         [Fact]
-        public void Result_should_be_null_when_objects_are_empty()
+        public void Result_should_be_null_when_both_operands_are_empty()
         {
             // setup
             var j1 = JToken.Parse("{}");
@@ -64,7 +64,7 @@ namespace JsonDiff.Core.Tests
         }
 
         [Fact]
-        public void Result_should_be_null_when_objects_are_null()
+        public void Result_should_be_null_when_both_operands_are_null()
         {
             // setup
             var j1 = default(JToken);
@@ -78,35 +78,23 @@ namespace JsonDiff.Core.Tests
         }
 
         [Fact]
-        public void Result_should_be_null_when_left_hand_object_is_null()
+        public void Result_should_be_null_when_either_of_operands_is_null()
         {
             // setup
             var j1 = default(JToken);
             var j2 = JToken.Parse("{}");
 
             // act
-            var diff = j1.Difference(j2);
+            var diff1 = j1.Difference(j2);
+            var diff2 = j2.Difference(j1);
 
             // assert
-            Assert.Null(diff);
+            Assert.Null(diff1);
+            Assert.Null(diff2);
         }
 
         [Fact]
-        public void Result_should_be_null_when_right_hand_object_is_null()
-        {
-            // setup
-            var j1 = JToken.Parse("{}");
-            var j2 = default(JToken);
-
-            // act
-            var diff = j1.Difference(j2);
-
-            // assert
-            Assert.Null(diff);
-        }
-
-        [Fact]
-        public void Differenc_should_store_left_operand_value_for_simple_key_value_objects()
+        public void Differenc_should_contain_left_hand_side_operand_value_for_simple_key_value_objects()
         {
             // setup
             var j1 = JToken.Parse("{'id':1, 'foo':'bar'}");
@@ -126,11 +114,11 @@ namespace JsonDiff.Core.Tests
         }
 
         [Fact]
-        public void Result_should_throw_invalid_operation_exception_when_operand_types_does_not_match()
+        public void Result_should_throw_invalid_operation_exception_when_operands_types_do_not_match()
         {
             // setup
-            var j1 = JToken.Parse("[{'id':1}]");
-            var j2 = JToken.Parse("{'id':2}");
+            var j1 = JToken.Parse("[{'areray':'foo'}]");
+            var j2 = JToken.Parse("{'object':'bar'}");
 
             // act
             var exception = Record.Exception(() =>
@@ -146,7 +134,7 @@ namespace JsonDiff.Core.Tests
         }
 
         [Fact]
-        public void Differenc_should_be_the_left_operand_for_simple_value_array()
+        public void Differenc_should_be_the_entire_left_hand_side_operand_value_for_simple_arrays()
         {
             // setup
             var j1 = JToken.Parse("['1','2','3']");
@@ -161,13 +149,8 @@ namespace JsonDiff.Core.Tests
             Assert.Equal(j2, diff21);
         }
 
-
-
-
-
-
         [Fact]
-        public void Differenc_should_cqpture_modifications_for_simple_key_value_objects_complex_json_IIIIIIIIIII()
+        public void Differenc_should_capture_modifications_for_simple_key_value_objects_complex_json_IIIIIIIIIII()
         {
             // setup
             var j1 = JToken.Parse(json1);
