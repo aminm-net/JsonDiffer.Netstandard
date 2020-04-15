@@ -1,8 +1,6 @@
 using Newtonsoft.Json.Linq;
 using System;
-using System.Linq;
 using Xunit;
-using JsonDiffer;
 
 namespace JsonDiffer.Tests
 {
