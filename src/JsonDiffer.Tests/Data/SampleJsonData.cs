@@ -282,10 +282,9 @@ namespace JsonDiffer.Tests.Data
             }
         }";
 
-
         public static class Expected
         {
-            public const string Sample01DiffrenceSample02 = @"{
+            public const string Diff0102 = @"{
                            ""*destination_addresses"":[
                               ""Napa County, CA, USA"",
                               ""Napa County2, CA, USA"",
@@ -315,7 +314,7 @@ namespace JsonDiffer.Tests.Data
                               }
                            ]
                     }";
-            public const string Sample02DiffrenceSample01 = @"{
+            public const string Diff0201 = @"{
                            ""*destination_addresses"":[
                               ""Washington, DC, USA"",
                               ""Napa County, CA, USA"",
@@ -346,7 +345,7 @@ namespace JsonDiffer.Tests.Data
                            ]
                     }";
 
-            public const string Sample03DiffrenceSample04 = @"[
+            public const string Diff0304 = @"[
                                                                   {
                                                                     ""*ppu"": 0.55,
                                                                     ""+Calorie"": 257
@@ -359,7 +358,7 @@ namespace JsonDiffer.Tests.Data
                                                                     ]
                                                                   }
                                                                 ]";
-            public const string Sample04DiffrenceSample03 = @"[
+            public const string Diff0403 = @"[
                                                                   {
                                                                     ""*ppu"": 0.65,
                                                                     ""-Calorie"": 257
@@ -373,7 +372,7 @@ namespace JsonDiffer.Tests.Data
                                                                   }
                                                                 ]";
 
-            public const string Sample05DiffrenceSample06 = @"{
+            public const string Diff0506 = @"{
                                                               ""*quiz"": {
                                                                 ""*sport"": {
                                                                   ""*q1"": {
@@ -398,7 +397,7 @@ namespace JsonDiffer.Tests.Data
                                                                 }
                                                               }
                                                             }";
-            public const string Sample06DiffrenceSample05 = @"{
+            public const string Diff0605 = @"{
                                                                   ""*quiz"": {
                                                                     ""*sport"": {
                                                                       ""*q1"": {
