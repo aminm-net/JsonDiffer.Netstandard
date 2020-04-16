@@ -149,23 +149,26 @@ namespace JsonDiffer.Tests
             Assert.Equal(j2, diff21);
         }
 
-        [Fact]
-        public void Differenc_should_capture_modifications_for_simple_key_value_objects_complex_json()
+        [Theory]
+        [InlineData(Sample01, Sample02, Expected.Sample01DiffrenceSample02, Expected.Sample02DiffrenceSample01)]
+        [InlineData(Sample03, Sample04, Expected.Sample03DiffrenceSample04, Expected.Sample04DiffrenceSample03)]
+        [InlineData(Sample05, Sample06, Expected.Sample05DiffrenceSample06, Expected.Sample06DiffrenceSample05)]
+        public void Differenc_should_capture_modifications_for_simple_key_value_objects_complex_json(string first, string second, string expected1Diff2, string expected2Diff1)
         {
             // setup
-            var j1 = JToken.Parse(Sample1);
-            var j2 = JToken.Parse(Sample2);
+            var j1 = JToken.Parse(first);
+            var j2 = JToken.Parse(second);
 
             // act
-            var diff12 = JsonDifferentiator.Differentiate(j1,j2);
-            var diff21 = JsonDifferentiator.Differentiate(j2,j1);
+            var actualDiff12 = JsonDifferentiator.Differentiate(j1,j2);
+            var actoualDiff21 = JsonDifferentiator.Differentiate(j2,j1);
 
-            var expected12 = JToken.Parse(Expected.Sample1DiffrenceSample2);
-            var expected21 = JToken.Parse(Expected.Sample2DiffrenceSample1);
+            var expected12 = JToken.Parse(expected1Diff2);
+            var expected21 = JToken.Parse(expected2Diff1);
 
             // assert
-            Assert.True(JToken.DeepEquals(expected12, diff12));
-            Assert.True(JToken.DeepEquals(expected21, diff21));
+            Assert.True(JToken.DeepEquals(expected12, actualDiff12));
+            Assert.True(JToken.DeepEquals(expected21, actoualDiff21));
         }
 
         [Fact]
