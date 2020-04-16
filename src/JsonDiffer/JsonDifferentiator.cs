@@ -26,14 +26,40 @@ namespace JsonDiffer
             {
                 if (property == null)
                 {
-                    if (second == null)
+                    if (first== null)
                     {
                         difference = second;
+                    }
+                    // array of object?
+                    else if (first is JArray && first.Children().All(c=>!(c is JValue)))
+                    {
+                        var difrences = new JArray();
+                        //var mode = second == null ? '-' : '*';
+                        var maximum = Math.Max(first?.Count() ?? 0, second?.Count() ?? 0);
+
+                        for (int i = 0; i < maximum; i++)
+                        {
+                            var firstsItem = first?.ElementAtOrDefault(i);
+                            var secondsItem = second?.ElementAtOrDefault(i);
+
+                            var diff = Differentiate(firstsItem, secondsItem);
+
+                            if (diff != null)
+                            {
+                                difrences.Add(diff);
+                            }
+                        }
+
+                        if (difrences.HasValues)
+                        {
+                            difference/*[$"{mode}{property}"] */= difrences;
+                        }
                     }
                     else
                     {
                         difference = first;
                     }
+
                     continue;
                 }
 
