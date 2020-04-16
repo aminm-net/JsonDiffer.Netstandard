@@ -6,7 +6,7 @@ namespace JsonDiffer
     {
         public static JToken Difference(this JToken first, JToken second)
         {
-            return new JsonDifferentiator().Differentiate(first, second);
+            return JsonDifferentiator.Differentiate(first, second);
         }
     }
 }

@@ -4,13 +4,13 @@ using System.Linq;
 
 namespace JsonDiffer
 {
-    public class JsonDifferentiator
+    public static class JsonDifferentiator
     {
-        public JToken Differentiate(JToken first, JToken second)
+        public static JToken Differentiate(JToken first, JToken second)
         {
             var difference = JToken.Parse("{}");
 
-            if (/*first == null || second == null || */JToken.DeepEquals(first, second)) return null;
+            if (JToken.DeepEquals(first, second)) return null;
 
             if (first != null && second != null && first?.GetType() != second?.GetType()) 
                 throw new InvalidOperationException($"Operands' types must match. '{first.GetType().Name}' <> '{second.GetType().Name}'");
@@ -19,7 +19,7 @@ namespace JsonDiffer
 
             if (!propertyNames.Any() && (first is JValue || second is JValue))
             {
-                return /*(first == null) ? second : */first;
+                return (first == null) ? second : first;
             }
 
             foreach (var property in propertyNames)

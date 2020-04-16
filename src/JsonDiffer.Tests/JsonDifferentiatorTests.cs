@@ -15,7 +15,7 @@ namespace JsonDiffer.Tests
             var j2 = JToken.Parse("{'id':1, 'foo':'baz'}");
 
             // act
-            var diff = new JsonDifferentiator().Differentiate(j1,j2);
+            var diff = JsonDifferentiator.Differentiate(j1,j2);
 
             // assert
             Assert.StartsWith("*", (diff.First as JProperty).Name);
@@ -29,7 +29,7 @@ namespace JsonDiffer.Tests
             var j2 = JToken.Parse("{'id':1, 'foo':'baz'}");
 
             // act
-            var diff = new JsonDifferentiator().Differentiate(j1,j2);
+            var diff = JsonDifferentiator.Differentiate(j1,j2);
 
             // assert
             Assert.StartsWith("+", (diff.First as JProperty).Name);
@@ -43,7 +43,7 @@ namespace JsonDiffer.Tests
             var j2 = JToken.Parse("{'id':1 }");
 
             // act
-            var diff = new JsonDifferentiator().Differentiate(j1,j2);
+            var diff = JsonDifferentiator.Differentiate(j1,j2);
 
             // assert
             Assert.StartsWith("-", (diff.First as JProperty).Name);
@@ -57,7 +57,7 @@ namespace JsonDiffer.Tests
             var j2 = JToken.Parse("{}");
 
             // act
-            var diff = new JsonDifferentiator().Differentiate(j1,j2);
+            var diff = JsonDifferentiator.Differentiate(j1,j2);
 
             // assert
             Assert.Null(diff);
@@ -71,7 +71,7 @@ namespace JsonDiffer.Tests
             var j2 = default(JToken);
 
             // act
-            var diff = new JsonDifferentiator().Differentiate(j1,j2);
+            var diff = JsonDifferentiator.Differentiate(j1,j2);
 
             // assert
             Assert.Null(diff);
@@ -85,8 +85,8 @@ namespace JsonDiffer.Tests
             var j2 = JToken.Parse("{'x':1}");
 
             // act
-            var diff1 = new JsonDifferentiator().Differentiate(j1,j2);
-            var diff2 = new JsonDifferentiator().Differentiate(j2,j1);
+            var diff1 = JsonDifferentiator.Differentiate(j1,j2);
+            var diff2 = JsonDifferentiator.Differentiate(j2,j1);
 
             // assert
             Assert.Equal(JToken.Parse("{'+x':1}"), diff1);
@@ -101,8 +101,8 @@ namespace JsonDiffer.Tests
             var j2 = JToken.Parse("{'id':1, 'foo':'baz'}");
 
             // act
-            var diff12 = new JsonDifferentiator().Differentiate(j1,j2);
-            var diff21 = new JsonDifferentiator().Differentiate(j2,j1);
+            var diff12 = JsonDifferentiator.Differentiate(j1,j2);
+            var diff21 = JsonDifferentiator.Differentiate(j2,j1);
 
             var expected12 = JToken.Parse("{'*foo':'bar'}");
             var expected21 = JToken.Parse("{'*foo':'baz'}");
@@ -123,7 +123,7 @@ namespace JsonDiffer.Tests
             // act
             var exception = Record.Exception(() =>
             {
-                var diff = new JsonDifferentiator().Differentiate(j1,j2);
+                var diff = JsonDifferentiator.Differentiate(j1,j2);
             });
 
             // assert
@@ -141,8 +141,8 @@ namespace JsonDiffer.Tests
             var j2 = JToken.Parse("['1','3']");
 
             // act
-            var diff12 = new JsonDifferentiator().Differentiate(j1,j2);
-            var diff21 = new JsonDifferentiator().Differentiate(j2,j1);
+            var diff12 = JsonDifferentiator.Differentiate(j1,j2);
+            var diff21 = JsonDifferentiator.Differentiate(j2,j1);
 
             // assert
             Assert.Equal(j1, diff12);
@@ -157,8 +157,8 @@ namespace JsonDiffer.Tests
             var j2 = JToken.Parse(Sample2);
 
             // act
-            var diff12 = new JsonDifferentiator().Differentiate(j1,j2);
-            var diff21 = new JsonDifferentiator().Differentiate(j2,j1);
+            var diff12 = JsonDifferentiator.Differentiate(j1,j2);
+            var diff21 = JsonDifferentiator.Differentiate(j2,j1);
 
             var expected12 = JToken.Parse(Expected.Sample1DiffrenceSample2);
             var expected21 = JToken.Parse(Expected.Sample2DiffrenceSample1);
@@ -176,8 +176,8 @@ namespace JsonDiffer.Tests
             var j2 = JToken.Parse("{'x':[{'foo':'quux'},{'corge':'grault'}]}");
 
             // act
-            var diff12 = new JsonDifferentiator().Differentiate(j1, j2);
-            var diff21 = new JsonDifferentiator().Differentiate(j2, j1);
+            var diff12 = JsonDifferentiator.Differentiate(j1, j2);
+            var diff21 = JsonDifferentiator.Differentiate(j2, j1);
             var expected12 = JToken.Parse("{'*x':[{'*foo':'bar'},{'-baz':'qux','+corge':'grault'}]}");
             var expected21 = JToken.Parse("{'*x':[{'*foo':'quux'},{'+baz':'qux','-corge':'grault'}]}");
 
