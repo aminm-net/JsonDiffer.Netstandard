@@ -3,7 +3,6 @@ A lightweight utility to compare JSON objects and hence practically any serializ
 
 
 ## JSON 1
-
 ```javascript
 {
   "name":"John",
@@ -29,6 +28,7 @@ A lightweight utility to compare JSON objects and hence practically any serializ
  }
 ```
 
+## Usage 
 ```csharp
 
  var j1 = JToken.Parse(Read(json1));
@@ -38,6 +38,7 @@ A lightweight utility to compare JSON objects and hence practically any serializ
  
 ```
 
+## Result 
 ```javascript
 {
   "-age": 30,
