@@ -85,7 +85,7 @@ namespace JsonDiffer
                 {
                     if (!JToken.DeepEquals(first?[property], second?[property]))
                     {
-                        difference[$"*{property}"] = value;
+                        difference[$"*{property}"] = second?[property];
                     }
 
                     continue;
