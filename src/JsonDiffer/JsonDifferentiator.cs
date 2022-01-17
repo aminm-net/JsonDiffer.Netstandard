@@ -24,7 +24,7 @@ namespace JsonDiffer
 
             foreach (var property in propertyNames)
             {
-                if (property == null)
+                if (property == null) 
                 {
                     if (first== null)
                     {
