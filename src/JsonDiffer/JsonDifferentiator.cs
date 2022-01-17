@@ -6,11 +6,11 @@ namespace JsonDiffer
 {
     public static class JsonDifferentiator
     {
-        public static JToken Differentiate(JToken first, JToken second)
+        public static JToken Differentiate(JToken first, JToken second, bool showOriginalValues = false)
         {
             if (JToken.DeepEquals(first, second)) return null;
 
-            if (first != null && second != null && first?.GetType() != second?.GetType()) 
+            if (first != null && second != null && first?.GetType() != second?.GetType())
                 throw new InvalidOperationException($"Operands' types must match; '{first.GetType().Name}' <> '{second.GetType().Name}'");
 
             var propertyNames = (first?.Children() ?? default).Union(second?.Children() ?? default)?.Select(_ => (_ as JProperty)?.Name)?.Distinct();
@@ -26,12 +26,12 @@ namespace JsonDiffer
             {
                 if (property == null)
                 {
-                    if (first== null)
+                    if (first == null)
                     {
                         difference = second;
                     }
                     // array of object?
-                    else if (first is JArray && first.Children().All(c=>!(c is JValue)))
+                    else if (first is JArray && first.Children().All(c => !(c is JValue)))
                     {
                         var difrences = new JArray();
                         //var mode = second == null ? '-' : '*';
@@ -42,7 +42,7 @@ namespace JsonDiffer
                             var firstsItem = first?.ElementAtOrDefault(i);
                             var secondsItem = second?.ElementAtOrDefault(i);
 
-                            var diff = Differentiate(firstsItem, secondsItem);
+                            var diff = Differentiate(firstsItem, secondsItem, showOriginalValues);
 
                             if (diff != null)
                             {
@@ -85,7 +85,7 @@ namespace JsonDiffer
                 {
                     if (!JToken.DeepEquals(first?[property], second?[property]))
                     {
-                        difference[$"*{property}"] = value;
+                        difference[$"*{property}"] = showOriginalValues ? second?[property] : value;
                     }
 
                     continue;
@@ -97,7 +97,7 @@ namespace JsonDiffer
                     var firstsItem = first[property];
                     var secondsItem = second[property];
 
-                    var diffrence = Differentiate(firstsItem, secondsItem);
+                    var diffrence = Differentiate(firstsItem, secondsItem, showOriginalValues);
 
                     if (diffrence != null /*&& diffrence.Count() > 0*/)
                     {
@@ -118,7 +118,7 @@ namespace JsonDiffer
                         var firstsItem = first[property]?.ElementAtOrDefault(i);
                         var secondsItem = second[property]?.ElementAtOrDefault(i);
 
-                        var diff = Differentiate(firstsItem, secondsItem);
+                        var diff = Differentiate(firstsItem, secondsItem, showOriginalValues);
 
                         if (diff != null)
                         {
