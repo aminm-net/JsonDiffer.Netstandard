@@ -236,7 +236,6 @@ namespace JsonDiffer.Tests
             // setup
             var j1 = JToken.Parse("{'id':1, 'foo':'bar'}");
             var j2 = JToken.Parse("{'id':1 }");
-            var apiPath = $"https://osi7511.forsyningsnet.dk/HotDocsGis/HotDocsGisApi/cabinet/{j1.First.ToString()}?stationNumber={outcome.StationNumberA}";
 
             // act
             var diff = JsonDifferentiator.Differentiate(j1, j2, OutputMode.Detailed);
