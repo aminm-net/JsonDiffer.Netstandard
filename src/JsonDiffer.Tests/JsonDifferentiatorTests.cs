@@ -48,7 +48,7 @@ namespace JsonDiffer.Tests
             // assert
             Assert.StartsWith("-", (diff.First as JProperty).Name);
         }
-
+        
         [Fact]
         public void Result_should_be_null_when_both_operands_are_empty()
         {
@@ -227,6 +227,22 @@ namespace JsonDiffer.Tests
             // assert
             Assert.True(JToken.DeepEquals(expected12, actual12));
             Assert.True(JToken.DeepEquals(expected21, actual21));
+        }
+
+        // new object model tests, we need more tests to be added
+        [Fact]
+        public void In_Detailed_Mode_Removed_properties_should_be_grouped_in_removed_property()
+        {
+            // setup
+            var j1 = JToken.Parse("{'id':1, 'foo':'bar'}");
+            var j2 = JToken.Parse("{'id':1 }");
+            var apiPath = $"https://osi7511.forsyningsnet.dk/HotDocsGis/HotDocsGisApi/cabinet/{j1.First.ToString()}?stationNumber={outcome.StationNumberA}";
+
+            // act
+            var diff = JsonDifferentiator.Differentiate(j1, j2, OutputMode.Detailed);
+
+            // assert
+            Assert.Equal(JToken.Parse("{ 'removed': {'foo': 'bar'}}"), diff);
         }
     }
 }
