@@ -2,10 +2,23 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;net46;netstandard1.3;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyVersion>0.2.1.0</AssemblyVersion>
+    <FileVersion>0.2.1.0</FileVersion>
+    <Version>0.2.1</Version>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
