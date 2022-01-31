@@ -4,9 +4,9 @@ namespace JsonDiffer
 {
     public static class JsonHelper
     {
-        public static JToken Difference(this JToken first, JToken second, bool showOriginalValues = false)
+        public static JToken Difference(this JToken first, JToken second, OutputMode outputMode = OutputMode.Symbol, bool showOriginalValues = false)
         {
-            return JsonDifferentiator.Differentiate(first, second, showOriginalValues );
+            return JsonDifferentiator.Differentiate(first, second, outputMode, showOriginalValues);
         }
     }
 }
