@@ -4,19 +4,18 @@ using System.Linq;
 
 namespace JsonDiffer
 {
-    public static class JsonDifferentiator
+    public class JsonDifferentiator
     {
-        public class Prop
+        public OutputMode OutputMode { get; private set; }
+        public bool ShowOriginalValues { get; private set; }
+        
+        public JsonDifferentiator(OutputMode outputMode , bool showOriginalValues)
         {
-            public Prop(string symbol, string property)
-            {
-                Symbol = symbol;
-                Property = property;
-            }
-            public string Symbol { get; set; }
-            public string Property { get; set; }
+            this.OutputMode = outputMode;
+            this.ShowOriginalValues = showOriginalValues;
         }
-        private static Prop PointTargetNode(JToken diff, string property, ChangeMode mode, OutputMode outMode)
+
+        private static TargetNode PointTargetNode(JToken diff, string property, ChangeMode mode, OutputMode outMode)
         {
             string symbol = string.Empty;
 
@@ -40,7 +39,7 @@ namespace JsonDiffer
                 diff[symbol] = JToken.Parse("{}");
             }
 
-            return new Prop(symbol, (outMode == OutputMode.Symbol) ? null : property);
+            return new TargetNode(symbol, (outMode == OutputMode.Symbol) ? null : property);
 
         }
 
@@ -257,6 +256,11 @@ namespace JsonDiffer
             }
 
             return difference;
+        }
+
+        public JToken Differentiate(JToken first, JToken second)
+        {
+            return Differentiate(first, second, this.OutputMode, this.ShowOriginalValues);
         }
     }
 }
