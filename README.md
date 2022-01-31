@@ -84,33 +84,8 @@ Shows diffrences with "*" for changed properties "-" and "+" for removed and add
 ```
 # Detailed Object Model
 As mentioned this new object model groups changes in removed, changed and added properties in the result object recursively.
+Given the same json samples:
 
-
-## JSON 1
-```javascript
-{
-  "name":"John",
-  "age":30,
-  "cars": {
-    "car1":"Ford",
-    "car2":"BMW",
-    "car3":"Fiat"
-  }
- }
-```
-
-## JSON 2
-```javascript
-{
-  "name":"John",
-  "cars": {
-    "car1":"Ford",
-    "car2":"BMW",
-    "car3":"Audi",
-    "car4":"Jaguar"
-  }
- }
-```
 
 ## Simple Usage 
 
