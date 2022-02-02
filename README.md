@@ -6,8 +6,7 @@ A lightweight utility to compare JSON objects and hence practically any serializ
 
 This library uses Newtonsoft.Json as the underlying engine.
 
-** Legacy version should work as they did before thanks to optional parameters added to the new functionalities. **
-
+**Note:  Legacy version should work as they did before thanks to optional parameters added to the new functionalities.**
 
 # ADHOC Object Model
 Shows diffrences with "*" for changed properties "-" and "+" for removed and added ones respectively.
