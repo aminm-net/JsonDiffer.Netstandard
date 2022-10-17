@@ -301,16 +301,16 @@ namespace JsonDiffer.Tests.Data
                                           ""text"":""3 hours 54 mins"",
                                           ""value"":14064
                                        },
-                                       ""*status"":""OK""
+                                       ""*status"":[""NOK""]
                                     },
                                     {
                                        ""*distance"":{
                                           ""-text"":""94.6 mi"",
-                                          ""*value"":152193
+                                          ""*value"":[1521.93]
                                        }
                                     }
                                  ],
-                                 ""*status"":""OK""
+                                 ""*status"":[""NOK""]
                               }
                            ]
                     }";
@@ -331,42 +331,42 @@ namespace JsonDiffer.Tests.Data
                                           ""text"":""3 hours 54 mins"",
                                           ""value"":14064
                                        },
-                                       ""*status"":""NOK""
+                                       ""*status"":[""OK""]
                                     },
                                     {
                                        ""*distance"":{
                                           ""+text"":""94.6 mi"",
-                                          ""*value"":1521.93
+                                          ""*value"":[152193]
                                        }
                                     }
                                  ],
-                                 ""*status"":""NOK""
+                                 ""*status"":[""OK""]
                               }
                            ]
                     }";
 
             public const string Diff0304 = @"[
                                                                   {
-                                                                    ""*ppu"": 0.55,
+                                                                    ""*ppu"": [0.65],
                                                                     ""+Calorie"": 257
                                                                   },
                                                                   {
                                                                     ""*topping"": [
                                                                       {
-                                                                        ""*type"": ""Maple""
+                                                                        ""*type"": [""Candy""]
                                                                       }
                                                                     ]
                                                                   }
                                                                 ]";
             public const string Diff0403 = @"[
                                                                   {
-                                                                    ""*ppu"": 0.65,
+                                                                    ""*ppu"": [0.55],
                                                                     ""-Calorie"": 257
                                                                   },
                                                                   {
                                                                     ""*topping"": [
                                                                       {
-                                                                        ""*type"": ""Candy""
+                                                                        ""*type"": [""Maple""]
                                                                       }
                                                                     ]
                                                                   }
@@ -376,7 +376,7 @@ namespace JsonDiffer.Tests.Data
                                                               ""*quiz"": {
                                                                 ""*sport"": {
                                                                   ""*q1"": {
-                                                                    ""*question"": ""Which one is correct team name for NBA?"",
+                                                                    ""*question"": [""Which one is correct team name in NBA?""],
                                                                     ""*options"": [
                                                                       ""Huston Rocket"",
                                                                       ""Golden State Warriros"",
@@ -401,7 +401,7 @@ namespace JsonDiffer.Tests.Data
                                                                   ""*quiz"": {
                                                                     ""*sport"": {
                                                                       ""*q1"": {
-                                                                        ""*question"": ""Which one is correct team name in NBA?"",
+                                                                        ""*question"": [""Which one is correct team name for NBA?""],
                                                                         ""*options"": [
                                                                           ""Juventus FC"",
                                                                           ""Golden State Warriros"",
@@ -423,7 +423,7 @@ namespace JsonDiffer.Tests.Data
                                                                   }
                                                                 }";
 
-            public static class OriginalAsDifference
+            public static class ExpectedOriginalAndNew
             {
                 public const string Diff0102 = @"{
                            ""*destination_addresses"":[
@@ -442,20 +442,19 @@ namespace JsonDiffer.Tests.Data
                                           ""text"":""3 hours 54 mins"",
                                           ""value"":14064
                                        },
-                                       ""*status"":""NOK""
+                                       ""*status"":[""OK"", ""NOK""]
                                     },
                                     {
                                        ""*distance"":{
                                           ""-text"":""94.6 mi"",
-                                          ""*value"":1521.93
+                                          ""*value"":[152193, 1521.93]
                                        }
                                     }
                                  ],
-                                 ""*status"":""NOK""
+                                 ""*status"":[""OK"", ""NOK""]
                               }
                            ]
                     }";
-
                 public const string Diff0201 = @"{
                            ""*destination_addresses"":[
                               ""Washington, DC, USA"",
@@ -473,42 +472,42 @@ namespace JsonDiffer.Tests.Data
                                           ""text"":""3 hours 54 mins"",
                                           ""value"":14064
                                        },
-                                       ""*status"":""OK""
+                                       ""*status"":[""NOK"", ""OK""]
                                     },
                                     {
                                        ""*distance"":{
                                           ""+text"":""94.6 mi"",
-                                          ""*value"":152193
+                                          ""*value"":[1521.93, 152193]
                                        }
                                     }
                                  ],
-                                 ""*status"":""OK""
+                                 ""*status"":[""NOK"", ""OK""]
                               }
                            ]
                     }";
 
                 public const string Diff0304 = @"[
                                                                   {
-                                                                    ""*ppu"": 0.65,
+                                                                    ""*ppu"": [0.55, 0.65],
                                                                     ""+Calorie"": 257
                                                                   },
                                                                   {
                                                                     ""*topping"": [
                                                                       {
-                                                                        ""*type"": ""Candy""
+                                                                        ""*type"": [""Maple"", ""Candy""]
                                                                       }
                                                                     ]
                                                                   }
                                                                 ]";
                 public const string Diff0403 = @"[
                                                                   {
-                                                                    ""*ppu"": 0.55,
+                                                                    ""*ppu"": [0.65, 0.55],
                                                                     ""-Calorie"": 257
                                                                   },
                                                                   {
                                                                     ""*topping"": [
                                                                       {
-                                                                        ""*type"": ""Maple""
+                                                                        ""*type"": [""Candy"",""Maple""]
                                                                       }
                                                                     ]
                                                                   }
@@ -518,7 +517,7 @@ namespace JsonDiffer.Tests.Data
                                                               ""*quiz"": {
                                                                 ""*sport"": {
                                                                   ""*q1"": {
-                                                                    ""*question"": ""Which one is correct team name in NBA?"",
+                                                                    ""*question"": [""Which one is correct team name for NBA?"",""Which one is correct team name in NBA?""],
                                                                     ""*options"": [
                                                                       ""Huston Rocket"",
                                                                       ""Golden State Warriros"",
@@ -543,7 +542,293 @@ namespace JsonDiffer.Tests.Data
                                                                   ""*quiz"": {
                                                                     ""*sport"": {
                                                                       ""*q1"": {
-                                                                        ""*question"": ""Which one is correct team name for NBA?"",
+                                                                        ""*question"": [""Which one is correct team name in NBA?"", ""Which one is correct team name for NBA?""],
+                                                                        ""*options"": [
+                                                                          ""Juventus FC"",
+                                                                          ""Golden State Warriros"",
+                                                                          ""Huston Rocket""
+                                                                        ]
+                                                                      }
+                                                                    },
+                                                                    ""*maths"": {
+                                                                      ""-q2"": {
+                                                                        ""question"": ""12 - 8 = ?"",
+                                                                        ""options"": [
+                                                                          ""1"",
+                                                                          ""3"",
+                                                                          ""4""
+                                                                        ],
+                                                                        ""answer"": ""4""
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }";
+            }
+            
+            public static class OriginalAsDifference
+            {
+                public const string Diff0102 = @"{
+                           ""*destination_addresses"":[
+                              ""Napa County, CA, USA"",
+                              ""Napa County2, CA, USA"",
+                              ""Napa County3, CA, USA""
+                           ],
+                           ""*rows"":[
+                              {
+                                 ""*elements"":[
+                                    {
+                                       ""*distance"":{
+                                          ""-value"":36546.8
+                                       },
+                                       ""-duration"":{
+                                          ""text"":""3 hours 54 mins"",
+                                          ""value"":14064
+                                       },
+                                       ""*status"":[""OK""]
+                                    },
+                                    {
+                                       ""*distance"":{
+                                          ""-text"":""94.6 mi"",
+                                          ""*value"":[152193]
+                                       }
+                                    }
+                                 ],
+                                 ""*status"":[""OK""]
+                              }
+                           ]
+                    }";
+
+                public const string Diff0201 = @"{
+                           ""*destination_addresses"":[
+                              ""Washington, DC, USA"",
+                              ""Napa County, CA, USA"",
+                              ""Orange County, CA, USA""
+                           ],
+                           ""*rows"":[
+                              {
+                                 ""*elements"":[
+                                    {
+                                       ""*distance"":{
+                                          ""+value"":36546.8
+                                       },
+                                       ""+duration"":{
+                                          ""text"":""3 hours 54 mins"",
+                                          ""value"":14064
+                                       },
+                                       ""*status"":[""NOK""]
+                                    },
+                                    {
+                                       ""*distance"":{
+                                          ""+text"":""94.6 mi"",
+                                          ""*value"":[1521.93]
+                                       }
+                                    }
+                                 ],
+                                 ""*status"":[""NOK""]
+                              }
+                           ]
+                    }";
+
+                public const string Diff0304 = @"[
+                                                                  {
+                                                                    ""*ppu"": [0.55],
+                                                                    ""+Calorie"": 257
+                                                                  },
+                                                                  {
+                                                                    ""*topping"": [
+                                                                      {
+                                                                        ""*type"": [""Maple""]
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]";
+                public const string Diff0403 = @"[
+                                                                  {
+                                                                    ""*ppu"": [0.65],
+                                                                    ""-Calorie"": 257
+                                                                  },
+                                                                  {
+                                                                    ""*topping"": [
+                                                                      {
+                                                                        ""*type"": [""Candy""]
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]";
+
+                public const string Diff0506 = @"{
+                                                              ""*quiz"": {
+                                                                ""*sport"": {
+                                                                  ""*q1"": {
+                                                                    ""*question"": [""Which one is correct team name for NBA?""],
+                                                                    ""*options"": [
+                                                                      ""Huston Rocket"",
+                                                                      ""Golden State Warriros"",
+                                                                      ""Huston Rocket""
+                                                                    ]
+                                                                  }
+                                                                },
+                                                                ""*maths"": {
+                                                                  ""+q2"": {
+                                                                    ""question"": ""12 - 8 = ?"",
+                                                                    ""options"": [
+                                                                      ""1"",
+                                                                      ""3"",
+                                                                      ""4""
+                                                                    ],
+                                                                    ""answer"": ""4""
+                                                                  }
+                                                                }
+                                                              }
+                                                            }";
+                public const string Diff0605 = @"{
+                                                                  ""*quiz"": {
+                                                                    ""*sport"": {
+                                                                      ""*q1"": {
+                                                                        ""*question"": [""Which one is correct team name in NBA?""],
+                                                                        ""*options"": [
+                                                                          ""Juventus FC"",
+                                                                          ""Golden State Warriros"",
+                                                                          ""Huston Rocket""
+                                                                        ]
+                                                                      }
+                                                                    },
+                                                                    ""*maths"": {
+                                                                      ""-q2"": {
+                                                                        ""question"": ""12 - 8 = ?"",
+                                                                        ""options"": [
+                                                                          ""1"",
+                                                                          ""3"",
+                                                                          ""4""
+                                                                        ],
+                                                                        ""answer"": ""4""
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }";
+            }
+
+            public static class OriginalAndNewAsDifference
+            {
+                public const string Diff0102 = @"{
+                           ""*destination_addresses"":[
+                              ""Napa County, CA, USA"",
+                              ""Napa County2, CA, USA"",
+                              ""Napa County3, CA, USA""
+                           ],
+                           ""*rows"":[
+                              {
+                                 ""*elements"":[
+                                    {
+                                       ""*distance"":{
+                                          ""-value"":36546.8
+                                       },
+                                       ""-duration"":{
+                                          ""text"":""3 hours 54 mins"",
+                                          ""value"":14064
+                                       },
+                                       ""*status"":[""OK"", ""NOK""]
+                                    },
+                                    {
+                                       ""*distance"":{
+                                          ""-text"":""94.6 mi"",
+                                          ""*value"":[152193, 1521.93]
+                                       }
+                                    }
+                                 ],
+                                 ""*status"":[""OK"", ""NOK""]
+                              }
+                           ]
+                    }";
+
+                public const string Diff0201 = @"{
+                           ""*destination_addresses"":[
+                              ""Washington, DC, USA"",
+                              ""Napa County, CA, USA"",
+                              ""Orange County, CA, USA""
+                           ],
+                           ""*rows"":[
+                              {
+                                 ""*elements"":[
+                                    {
+                                       ""*distance"":{
+                                          ""+value"":36546.8
+                                       },
+                                       ""+duration"":{
+                                          ""text"":""3 hours 54 mins"",
+                                          ""value"":14064
+                                       },
+                                       ""*status"":[""NOK"", ""OK""]
+                                    },
+                                    {
+                                       ""*distance"":{
+                                          ""+text"":""94.6 mi"",
+                                          ""*value"":[1521.93, 152193]
+                                       }
+                                    }
+                                 ],
+                                 ""*status"":[""NOK"", ""OK""]
+                              }
+                           ]
+                    }";
+
+                public const string Diff0304 = @"[
+                                                                  {
+                                                                    ""*ppu"": [0.55, 0.65],
+                                                                    ""+Calorie"": 257
+                                                                  },
+                                                                  {
+                                                                    ""*topping"": [
+                                                                      {
+                                                                        ""*type"": [""Maple"", ""Candy""]
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]";
+                public const string Diff0403 = @"[
+                                                                  {
+                                                                    ""*ppu"": [0.65, 0.55],
+                                                                    ""-Calorie"": 257
+                                                                  },
+                                                                  {
+                                                                    ""*topping"": [
+                                                                      {
+                                                                        ""*type"": [""Candy"", ""Maple""]
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]";
+
+                public const string Diff0506 = @"{
+                                                              ""*quiz"": {
+                                                                ""*sport"": {
+                                                                  ""*q1"": {
+                                                                    ""*question"": [""Which one is correct team name for NBA?"", ""Which one is correct team name in NBA?""],
+                                                                    ""*options"": [
+                                                                      ""Huston Rocket"",
+                                                                      ""Golden State Warriros"",
+                                                                      ""Huston Rocket""
+                                                                    ]
+                                                                  }
+                                                                },
+                                                                ""*maths"": {
+                                                                  ""+q2"": {
+                                                                    ""question"": ""12 - 8 = ?"",
+                                                                    ""options"": [
+                                                                      ""1"",
+                                                                      ""3"",
+                                                                      ""4""
+                                                                    ],
+                                                                    ""answer"": ""4""
+                                                                  }
+                                                                }
+                                                              }
+                                                            }";
+                public const string Diff0605 = @"{
+                                                                  ""*quiz"": {
+                                                                    ""*sport"": {
+                                                                      ""*q1"": {
+                                                                        ""*question"": [""Which one is correct team name in NBA?"", ""Which one is correct team name for NBA?""],
                                                                         ""*options"": [
                                                                           ""Juventus FC"",
                                                                           ""Golden State Warriros"",

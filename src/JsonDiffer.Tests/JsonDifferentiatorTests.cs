@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using Xunit;
+using static JsonDiffer.Tests.Data.SampleJsonData.Expected;
 
 namespace JsonDiffer.Tests
 {
@@ -104,9 +105,27 @@ namespace JsonDiffer.Tests
             var diff12 = JsonDifferentiator.Differentiate(j1, j2);
             var diff21 = JsonDifferentiator.Differentiate(j2, j1);
 
-            var expected12 = JToken.Parse("{'*foo':'bar'}");
-            var expected21 = JToken.Parse("{'*foo':'baz'}");
+            var expected12 = JToken.Parse("{'*foo':['baz']}");
+            var expected21 = JToken.Parse("{'*foo':['bar']}");
 
+            // assert
+            Assert.Equal(expected12, diff12);
+            Assert.Equal(expected21, diff21);
+        }
+
+        [Fact]
+        public void Differenc_should_contain_left_hand_side_operand_value_for_simple_key_value_objects_show_original_and_new()
+        {
+            // setup
+            var j1 = JToken.Parse("{'id':1, 'foo':'bar'}");
+            var j2 = JToken.Parse("{'id':1, 'foo':'baz'}");
+
+            // act
+            var diff12 = JsonDifferentiator.Differentiate(j1, j2, OutputMode.Symbol, ShowValuesOptions.OriginalAndNew);
+            var diff21 = JsonDifferentiator.Differentiate(j2, j1, OutputMode.Symbol, ShowValuesOptions.OriginalAndNew);
+
+            var expected12 = JToken.Parse("{'*foo':['bar','baz']}");
+            var expected21 = JToken.Parse("{'*foo':['baz','bar']}");
 
             // assert
             Assert.Equal(expected12, diff12);
@@ -171,6 +190,28 @@ namespace JsonDiffer.Tests
             Assert.True(JToken.DeepEquals(expected21, actual21));
         }
 
+        [Theory]
+        [InlineData(Sample01, Sample02, ExpectedOriginalAndNew.Diff0102, ExpectedOriginalAndNew.Diff0201)]
+        [InlineData(Sample03, Sample04, ExpectedOriginalAndNew.Diff0304, ExpectedOriginalAndNew.Diff0403)]
+        [InlineData(Sample05, Sample06, ExpectedOriginalAndNew.Diff0506, ExpectedOriginalAndNew.Diff0605)]
+        public void Differenc_should_capture_modifications_for_simple_key_value_objects_complex_json_show_original_and_new(string first, string second, string expected1Diff2, string expected2Diff1)
+        {
+            // setup
+            var j1 = JToken.Parse(first);
+            var j2 = JToken.Parse(second);
+
+            // act
+            var actual12 = JsonDifferentiator.Differentiate(j1, j2, showValues: ShowValuesOptions.OriginalAndNew);
+            var actual21 = JsonDifferentiator.Differentiate(j2, j1, showValues: ShowValuesOptions.OriginalAndNew);
+
+            var expected12 = JToken.Parse(expected1Diff2);
+            var expected21 = JToken.Parse(expected2Diff1);
+
+            // assert
+            Assert.True(JToken.DeepEquals(expected12, actual12));
+            Assert.True(JToken.DeepEquals(expected21, actual21));
+        }
+
         [Fact]
         public void Differenc_should_show_differences_for_all_objects_inside_Array()
         {
@@ -181,8 +222,26 @@ namespace JsonDiffer.Tests
             // act
             var diff12 = JsonDifferentiator.Differentiate(j1, j2);
             var diff21 = JsonDifferentiator.Differentiate(j2, j1);
-            var expected12 = JToken.Parse("{'*x':[{'*foo':'bar'},{'-baz':'qux','+corge':'grault'}]}");
-            var expected21 = JToken.Parse("{'*x':[{'*foo':'quux'},{'+baz':'qux','-corge':'grault'}]}");
+            var expected12 = JToken.Parse("{'*x':[{'*foo':['quux']},{'-baz':'qux','+corge':'grault'}]}");
+            var expected21 = JToken.Parse("{'*x':[{'*foo':['bar']},{'+baz':'qux','-corge':'grault'}]}");
+
+            // assert
+            Assert.True(JToken.DeepEquals(expected12, diff12));
+            Assert.True(JToken.DeepEquals(expected21, diff21));
+        }
+
+        [Fact]
+        public void Differenc_should_show_differences_for_all_objects_inside_Array_show_original_and_new()
+        {
+            // setup
+            var j1 = JToken.Parse("{'x':[{'foo':'bar'},{'baz':'qux'}]}");
+            var j2 = JToken.Parse("{'x':[{'foo':'quux'},{'corge':'grault'}]}");
+
+            // act
+            var diff12 = JsonDifferentiator.Differentiate(j1, j2, OutputMode.Symbol, ShowValuesOptions.OriginalAndNew);
+            var diff21 = JsonDifferentiator.Differentiate(j2, j1, OutputMode.Symbol, ShowValuesOptions.OriginalAndNew);
+            var expected12 = JToken.Parse("{'*x':[{'*foo':['bar','quux']},{'-baz':'qux','+corge':'grault'}]}");
+            var expected21 = JToken.Parse("{'*x':[{'*foo':['quux','bar']},{'+baz':'qux','-corge':'grault'}]}");
 
             // assert
             Assert.True(JToken.DeepEquals(expected12, diff12));
@@ -199,8 +258,26 @@ namespace JsonDiffer.Tests
             // act
             var diff12 = JsonDifferentiator.Differentiate(j1, j2);
             var diff21 = JsonDifferentiator.Differentiate(j2, j1);
-            var expected12 = JToken.Parse("[{'*foo':'bar'},{'-baz':'qux','+corge':'grault'}]");
-            var expected21 = JToken.Parse("[{'*foo':'quux'},{'+baz':'qux','-corge':'grault'}]");
+            var expected12 = JToken.Parse("[{'*foo':['quux']},{'-baz':'qux','+corge':'grault'}]");
+            var expected21 = JToken.Parse("[{'*foo':['bar']},{'+baz':'qux','-corge':'grault'}]");
+
+            // assert
+            Assert.True(JToken.DeepEquals(expected12, diff12));
+            Assert.True(JToken.DeepEquals(expected21, diff21));
+        }
+
+        [Fact]
+        public void Differenc_should_show_differences_for_all_objects_inside_Array_2_show_original_and_new()
+        {
+            // setup
+            var j1 = JToken.Parse("[{'foo':'bar'},{'baz':'qux'}]");
+            var j2 = JToken.Parse("[{'foo':'quux'},{'corge':'grault'}]");
+
+            // act
+            var diff12 = JsonDifferentiator.Differentiate(j1, j2, OutputMode.Symbol, ShowValuesOptions.OriginalAndNew);
+            var diff21 = JsonDifferentiator.Differentiate(j2, j1, OutputMode.Symbol, ShowValuesOptions.OriginalAndNew);
+            var expected12 = JToken.Parse("[{'*foo':['bar','quux']},{'-baz':'qux','+corge':'grault'}]");
+            var expected21 = JToken.Parse("[{'*foo':['quux', 'bar']},{'+baz':'qux','-corge':'grault'}]");
 
             // assert
             Assert.True(JToken.DeepEquals(expected12, diff12));
@@ -218,8 +295,30 @@ namespace JsonDiffer.Tests
             var j2 = JToken.Parse(second);
 
             // act
-            var actual12 = JsonDifferentiator.Differentiate(j1, j2, showOriginalValues: true);
-            var actual21 = JsonDifferentiator.Differentiate(j2, j1, showOriginalValues: true);
+            var actual12 = JsonDifferentiator.Differentiate(j1, j2, showValues: ShowValuesOptions.Original);
+            var actual21 = JsonDifferentiator.Differentiate(j2, j1, showValues: ShowValuesOptions.Original);
+
+            var expected12 = JToken.Parse(expected1Diff2);
+            var expected21 = JToken.Parse(expected2Diff1);
+
+            // assert
+            Assert.True(JToken.DeepEquals(expected12, actual12));
+            Assert.True(JToken.DeepEquals(expected21, actual21));
+        }
+
+        [Theory]
+        [InlineData(Sample01, Sample02, Expected.OriginalAndNewAsDifference.Diff0102, Expected.OriginalAndNewAsDifference.Diff0201)]
+        [InlineData(Sample03, Sample04, Expected.OriginalAndNewAsDifference.Diff0304, Expected.OriginalAndNewAsDifference.Diff0403)]
+        [InlineData(Sample05, Sample06, Expected.OriginalAndNewAsDifference.Diff0506, Expected.OriginalAndNewAsDifference.Diff0605)]
+        public void Differenc_should_show_original_values_if_show_original_flag_is_set_show_original_and_new(string first, string second, string expected1Diff2, string expected2Diff1)
+        {
+            // setup
+            var j1 = JToken.Parse(first);
+            var j2 = JToken.Parse(second);
+
+            // act
+            var actual12 = JsonDifferentiator.Differentiate(j1, j2, showValues: ShowValuesOptions.OriginalAndNew);
+            var actual21 = JsonDifferentiator.Differentiate(j2, j1, showValues: ShowValuesOptions.OriginalAndNew);
 
             var expected12 = JToken.Parse(expected1Diff2);
             var expected21 = JToken.Parse(expected2Diff1);
