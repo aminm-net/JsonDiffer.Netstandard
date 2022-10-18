@@ -286,9 +286,9 @@ namespace JsonDiffer.Tests.Data
         {
             public const string Diff0102 = @"{
                            ""*destination_addresses"":[
-                              ""Napa County, CA, USA"",
-                              ""Napa County2, CA, USA"",
-                              ""Napa County3, CA, USA""
+                              [""Washington, DC, USA""],
+                              [""Napa County, CA, USA""],
+                              [""Orange County, CA, USA""]
                            ],
                            ""*rows"":[
                               {
@@ -316,9 +316,9 @@ namespace JsonDiffer.Tests.Data
                     }";
             public const string Diff0201 = @"{
                            ""*destination_addresses"":[
-                              ""Washington, DC, USA"",
-                              ""Napa County, CA, USA"",
-                              ""Orange County, CA, USA""
+                              [""Napa County, CA, USA""],
+                              [""Napa County2, CA, USA""],
+                              [""Napa County3, CA, USA""]
                            ],
                            ""*rows"":[
                               {
@@ -378,9 +378,9 @@ namespace JsonDiffer.Tests.Data
                                                                   ""*q1"": {
                                                                     ""*question"": [""Which one is correct team name in NBA?""],
                                                                     ""*options"": [
-                                                                      ""Huston Rocket"",
-                                                                      ""Golden State Warriros"",
-                                                                      ""Huston Rocket""
+                                                                      [""Juventus FC""],
+                                                                      [""Golden State Warriros""],
+                                                                      [""Huston Rocket""]
                                                                     ]
                                                                   }
                                                                 },
@@ -403,9 +403,7 @@ namespace JsonDiffer.Tests.Data
                                                                       ""*q1"": {
                                                                         ""*question"": [""Which one is correct team name for NBA?""],
                                                                         ""*options"": [
-                                                                          ""Juventus FC"",
-                                                                          ""Golden State Warriros"",
-                                                                          ""Huston Rocket""
+                                                                          [""Huston Rocket""]
                                                                         ]
                                                                       }
                                                                     },
@@ -427,9 +425,9 @@ namespace JsonDiffer.Tests.Data
             {
                 public const string Diff0102 = @"{
                            ""*destination_addresses"":[
-                              ""Napa County, CA, USA"",
-                              ""Napa County2, CA, USA"",
-                              ""Napa County3, CA, USA""
+                              [""Napa County, CA, USA"", ""Washington, DC, USA""],
+                              [""Napa County2, CA, USA"", ""Napa County, CA, USA""],
+                              [""Napa County3, CA, USA"", ""Orange County, CA, USA""]
                            ],
                            ""*rows"":[
                               {
@@ -457,9 +455,9 @@ namespace JsonDiffer.Tests.Data
                     }";
                 public const string Diff0201 = @"{
                            ""*destination_addresses"":[
-                              ""Washington, DC, USA"",
-                              ""Napa County, CA, USA"",
-                              ""Orange County, CA, USA""
+                              [""Washington, DC, USA"", ""Napa County, CA, USA""],
+                              [""Napa County, CA, USA"", ""Napa County2, CA, USA""],
+                              [""Orange County, CA, USA"", ""Napa County3, CA, USA""]
                            ],
                            ""*rows"":[
                               {
@@ -519,9 +517,9 @@ namespace JsonDiffer.Tests.Data
                                                                   ""*q1"": {
                                                                     ""*question"": [""Which one is correct team name for NBA?"",""Which one is correct team name in NBA?""],
                                                                     ""*options"": [
-                                                                      ""Huston Rocket"",
-                                                                      ""Golden State Warriros"",
-                                                                      ""Huston Rocket""
+                                                                      [""Huston Rocket"", ""Juventus FC""],
+                                                                      [null, ""Golden State Warriros""],
+                                                                      [null, ""Huston Rocket""]
                                                                     ]
                                                                   }
                                                                 },
@@ -544,9 +542,9 @@ namespace JsonDiffer.Tests.Data
                                                                       ""*q1"": {
                                                                         ""*question"": [""Which one is correct team name in NBA?"", ""Which one is correct team name for NBA?""],
                                                                         ""*options"": [
-                                                                          ""Juventus FC"",
-                                                                          ""Golden State Warriros"",
-                                                                          ""Huston Rocket""
+                                                                          [""Juventus FC"", ""Huston Rocket""],
+                                                                          [""Golden State Warriros"", null],
+                                                                          [""Huston Rocket"", null]
                                                                         ]
                                                                       }
                                                                     },
@@ -569,9 +567,9 @@ namespace JsonDiffer.Tests.Data
             {
                 public const string Diff0102 = @"{
                            ""*destination_addresses"":[
-                              ""Napa County, CA, USA"",
-                              ""Napa County2, CA, USA"",
-                              ""Napa County3, CA, USA""
+                              [""Napa County, CA, USA""],
+                              [""Napa County2, CA, USA""],
+                              [""Napa County3, CA, USA""]
                            ],
                            ""*rows"":[
                               {
@@ -600,9 +598,9 @@ namespace JsonDiffer.Tests.Data
 
                 public const string Diff0201 = @"{
                            ""*destination_addresses"":[
-                              ""Washington, DC, USA"",
-                              ""Napa County, CA, USA"",
-                              ""Orange County, CA, USA""
+                              [""Washington, DC, USA""],
+                              [""Napa County, CA, USA""],
+                              [""Orange County, CA, USA""]
                            ],
                            ""*rows"":[
                               {
@@ -662,9 +660,7 @@ namespace JsonDiffer.Tests.Data
                                                                   ""*q1"": {
                                                                     ""*question"": [""Which one is correct team name for NBA?""],
                                                                     ""*options"": [
-                                                                      ""Huston Rocket"",
-                                                                      ""Golden State Warriros"",
-                                                                      ""Huston Rocket""
+                                                                      [""Huston Rocket""]
                                                                     ]
                                                                   }
                                                                 },
@@ -687,9 +683,9 @@ namespace JsonDiffer.Tests.Data
                                                                       ""*q1"": {
                                                                         ""*question"": [""Which one is correct team name in NBA?""],
                                                                         ""*options"": [
-                                                                          ""Juventus FC"",
-                                                                          ""Golden State Warriros"",
-                                                                          ""Huston Rocket""
+                                                                          [""Juventus FC""],
+                                                                          [""Golden State Warriros""],
+                                                                          [""Huston Rocket""]
                                                                         ]
                                                                       }
                                                                     },
@@ -712,9 +708,9 @@ namespace JsonDiffer.Tests.Data
             {
                 public const string Diff0102 = @"{
                            ""*destination_addresses"":[
-                              ""Napa County, CA, USA"",
-                              ""Napa County2, CA, USA"",
-                              ""Napa County3, CA, USA""
+                              [""Napa County, CA, USA"", ""Washington, DC, USA""],
+                              [""Napa County2, CA, USA"", ""Napa County, CA, USA""],
+                              [""Napa County3, CA, USA"", ""Orange County, CA, USA""]
                            ],
                            ""*rows"":[
                               {
@@ -743,9 +739,9 @@ namespace JsonDiffer.Tests.Data
 
                 public const string Diff0201 = @"{
                            ""*destination_addresses"":[
-                              ""Washington, DC, USA"",
-                              ""Napa County, CA, USA"",
-                              ""Orange County, CA, USA""
+                              [""Washington, DC, USA"", ""Napa County, CA, USA""],
+                              [""Napa County, CA, USA"", ""Napa County2, CA, USA""],
+                              [""Orange County, CA, USA"", ""Napa County3, CA, USA""]
                            ],
                            ""*rows"":[
                               {
@@ -805,9 +801,9 @@ namespace JsonDiffer.Tests.Data
                                                                   ""*q1"": {
                                                                     ""*question"": [""Which one is correct team name for NBA?"", ""Which one is correct team name in NBA?""],
                                                                     ""*options"": [
-                                                                      ""Huston Rocket"",
-                                                                      ""Golden State Warriros"",
-                                                                      ""Huston Rocket""
+                                                                      [""Huston Rocket"", ""Juventus FC""],
+                                                                      [null, ""Golden State Warriros""],
+                                                                      [null, ""Huston Rocket""]
                                                                     ]
                                                                   }
                                                                 },
@@ -830,9 +826,9 @@ namespace JsonDiffer.Tests.Data
                                                                       ""*q1"": {
                                                                         ""*question"": [""Which one is correct team name in NBA?"", ""Which one is correct team name for NBA?""],
                                                                         ""*options"": [
-                                                                          ""Juventus FC"",
-                                                                          ""Golden State Warriros"",
-                                                                          ""Huston Rocket""
+                                                                          [""Juventus FC"", ""Huston Rocket""],
+                                                                          [""Golden State Warriros"", null],
+                                                                          [""Huston Rocket"", null]
                                                                         ]
                                                                       }
                                                                     },

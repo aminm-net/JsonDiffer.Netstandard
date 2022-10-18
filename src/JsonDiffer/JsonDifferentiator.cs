@@ -54,7 +54,17 @@ namespace JsonDiffer
 
             if (!propertyNames.Any() && (first is JValue || second is JValue))
             {
-                return (first == null) ? second : first;
+                if(first == second) return null;
+                
+                switch (showValues)
+                {
+                    case ShowValuesOptions.Original:
+                        return (first != null) ? new JArray(first) : null;
+                    case ShowValuesOptions.New:
+                        return (second != null) ? new JArray(second) : null;
+                    case ShowValuesOptions.OriginalAndNew:
+                        return new JArray(first, second);
+                }
             }
 
             var difference = JToken.Parse("{}");
