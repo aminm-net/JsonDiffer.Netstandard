@@ -1,5 +1,5 @@
 # JsonDiffer.NetStandard
-A lightweight utility to compare JSON objects and hence practically any serialize-able entity. This utility comes with two distincrt object models, adhoc and detailed.
+A lightweight utility to compare JSON objects and hence practically any serialize-able entity. This utility comes with two distinct object models, adhoc and detailed.
 
 * Adhoc object model shows diffrences with "*" for changed properties "-" and "+" for removed and added ones respectively.
 * Detailed object models groups changes in three properties: changed, added and removed.
@@ -52,7 +52,7 @@ Shows diffrences with "*" for changed properties "-" and "+" for removed and add
 {
   "-age": 30,
   "*cars": {
-    "*car3": ["Audi"],
+    "*car3": {"new": "Audi"},
     "+car4": "Jaguar"
   }
 }
@@ -74,7 +74,7 @@ Shows diffrences with "*" for changed properties "-" and "+" for removed and add
 {
   "-age": 30,
   "*cars": {
-    "*car3": ["Fiat"],
+    "*car3": {"original": "Fiat"},
     "+car4": "Jaguar"
   }
 }
@@ -98,7 +98,7 @@ Shows diffrences with "*" for changed properties "-" and "+" for removed and add
 {
   "-age": 30,
   "*cars": {
-    "*car3": ["Fiat", "Audi"],
+    "*car3": {"original": "Fiat", "new": "Audi"},
     "+car4": "Jaguar"
   }
 }
@@ -131,7 +131,7 @@ Given the same json samples:
   "changed": {
     "cars": {
       "changed": {
-        "car3": ["Audi"]
+        "car3": {"new": "Audi"}
       },
       "added": {
         "car4": "Jaguar"
@@ -160,7 +160,7 @@ Given the same json samples:
   "changed": {
     "cars": {
       "changed": {
-        "car3": ["Fiat"]
+        "car3": {"original": "Fiat"}
       },
       "added": {
         "car4": "Jaguar"
@@ -189,7 +189,7 @@ Given the same json samples:
   "changed": {
     "cars": {
       "changed": {
-        "car3": ["Fiat", "Audi"]
+        "car3": {"original": "Fiat", "new": "Audi"}
       },
       "added": {
         "car4": "Jaguar"
@@ -219,7 +219,7 @@ Given the same json samples:
   "changed": {
     "cars": {
       "changed": {
-        "car3": ["Audi"]
+        "car3": {"new": "Audi"}
       },
       "added": {
         "car4": "Jaguar"
