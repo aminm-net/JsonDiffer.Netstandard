@@ -105,8 +105,8 @@ namespace JsonDiffer.Tests
             var diff12 = JsonDifferentiator.Differentiate(j1, j2);
             var diff21 = JsonDifferentiator.Differentiate(j2, j1);
 
-            var expected12 = JToken.Parse("{'*foo':['baz']}");
-            var expected21 = JToken.Parse("{'*foo':['bar']}");
+            var expected12 = JToken.Parse("{'*foo':{'new': 'baz'}}");
+            var expected21 = JToken.Parse("{'*foo':{'new': 'bar'}}");
 
             // assert
             Assert.Equal(expected12, diff12);
@@ -124,8 +124,8 @@ namespace JsonDiffer.Tests
             var diff12 = JsonDifferentiator.Differentiate(j1, j2, OutputMode.Symbol, ShowValuesOptions.OriginalAndNew);
             var diff21 = JsonDifferentiator.Differentiate(j2, j1, OutputMode.Symbol, ShowValuesOptions.OriginalAndNew);
 
-            var expected12 = JToken.Parse("{'*foo':['bar','baz']}");
-            var expected21 = JToken.Parse("{'*foo':['baz','bar']}");
+            var expected12 = JToken.Parse("{'*foo':{'original': 'bar', 'new': 'baz'}}");
+            var expected21 = JToken.Parse("{'*foo':{'original': 'baz', 'new': 'bar'}}");
 
             // assert
             Assert.Equal(expected12, diff12);
@@ -222,8 +222,8 @@ namespace JsonDiffer.Tests
             // act
             var diff12 = JsonDifferentiator.Differentiate(j1, j2);
             var diff21 = JsonDifferentiator.Differentiate(j2, j1);
-            var expected12 = JToken.Parse("{'*x':[{'*foo':['quux']},{'-baz':'qux','+corge':'grault'}]}");
-            var expected21 = JToken.Parse("{'*x':[{'*foo':['bar']},{'+baz':'qux','-corge':'grault'}]}");
+            var expected12 = JToken.Parse("{'*x':[{'*foo':{'new': 'quux'}},{'-baz':'qux','+corge':'grault'}]}");
+            var expected21 = JToken.Parse("{'*x':[{'*foo':{'new': 'bar'}},{'+baz':'qux','-corge':'grault'}]}");
 
             // assert
             Assert.True(JToken.DeepEquals(expected12, diff12));
@@ -240,8 +240,8 @@ namespace JsonDiffer.Tests
             // act
             var diff12 = JsonDifferentiator.Differentiate(j1, j2, OutputMode.Symbol, ShowValuesOptions.OriginalAndNew);
             var diff21 = JsonDifferentiator.Differentiate(j2, j1, OutputMode.Symbol, ShowValuesOptions.OriginalAndNew);
-            var expected12 = JToken.Parse("{'*x':[{'*foo':['bar','quux']},{'-baz':'qux','+corge':'grault'}]}");
-            var expected21 = JToken.Parse("{'*x':[{'*foo':['quux','bar']},{'+baz':'qux','-corge':'grault'}]}");
+            var expected12 = JToken.Parse("{'*x':[{'*foo':{'original': 'bar', 'new': 'quux'}},{'-baz':'qux','+corge':'grault'}]}");
+            var expected21 = JToken.Parse("{'*x':[{'*foo':{'original': 'quux', 'new': 'bar'}},{'+baz':'qux','-corge':'grault'}]}");
 
             // assert
             Assert.True(JToken.DeepEquals(expected12, diff12));
@@ -258,8 +258,8 @@ namespace JsonDiffer.Tests
             // act
             var diff12 = JsonDifferentiator.Differentiate(j1, j2);
             var diff21 = JsonDifferentiator.Differentiate(j2, j1);
-            var expected12 = JToken.Parse("[{'*foo':['quux']},{'-baz':'qux','+corge':'grault'}]");
-            var expected21 = JToken.Parse("[{'*foo':['bar']},{'+baz':'qux','-corge':'grault'}]");
+            var expected12 = JToken.Parse("[{'*foo':{'new': 'quux'}},{'-baz':'qux','+corge':'grault'}]");
+            var expected21 = JToken.Parse("[{'*foo':{'new': 'bar'}},{'+baz':'qux','-corge':'grault'}]");
 
             // assert
             Assert.True(JToken.DeepEquals(expected12, diff12));
@@ -276,8 +276,8 @@ namespace JsonDiffer.Tests
             // act
             var diff12 = JsonDifferentiator.Differentiate(j1, j2, OutputMode.Symbol, ShowValuesOptions.OriginalAndNew);
             var diff21 = JsonDifferentiator.Differentiate(j2, j1, OutputMode.Symbol, ShowValuesOptions.OriginalAndNew);
-            var expected12 = JToken.Parse("[{'*foo':['bar','quux']},{'-baz':'qux','+corge':'grault'}]");
-            var expected21 = JToken.Parse("[{'*foo':['quux', 'bar']},{'+baz':'qux','-corge':'grault'}]");
+            var expected12 = JToken.Parse("[{'*foo':{'original': 'bar', 'new': 'quux'}},{'-baz':'qux','+corge':'grault'}]");
+            var expected21 = JToken.Parse("[{'*foo':{'original': 'quux', 'new': 'bar'}},{'+baz':'qux','-corge':'grault'}]");
 
             // assert
             Assert.True(JToken.DeepEquals(expected12, diff12));

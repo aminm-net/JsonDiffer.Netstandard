@@ -15,7 +15,7 @@ namespace JsonDiffer.Tests
 
             // act
             var diff = j1.Difference(j2);
-            var expected = JToken.Parse(@"{""*foo"":[""baz""]}");
+            var expected = JToken.Parse("{'*foo':{'new': 'baz'}}");
 
             // assert
             Assert.StartsWith("*", (diff.First as JProperty).Name);

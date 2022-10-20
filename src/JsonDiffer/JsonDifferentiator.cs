@@ -59,11 +59,11 @@ namespace JsonDiffer
                 switch (showValues)
                 {
                     case ShowValuesOptions.Original:
-                        return (first != null) ? new JArray(first) : null;
+                        return (first != null) ? CreateOriginalAndNewElement(first, null, showValues) : null;
                     case ShowValuesOptions.New:
-                        return (second != null) ? new JArray(second) : null;
+                        return (second != null) ? CreateOriginalAndNewElement(null, second, showValues) : null;
                     case ShowValuesOptions.OriginalAndNew:
-                        return new JArray(first, second);
+                        return CreateOriginalAndNewElement(first, second, showValues);
                 }
             }
 
@@ -149,36 +149,13 @@ namespace JsonDiffer
 
                         if (targetNode.Property != null)
                         {
-                            if (showValues == ShowValuesOptions.Original)
-                            {
-                                difference[targetNode.Symbol][targetNode.Property] = new JArray(value);
-                            }
-                            else if (showValues == ShowValuesOptions.New)
-                            {
-                                difference[targetNode.Symbol][targetNode.Property] = new JArray(second?[property]);
-                            }
-                            else
-                            {
-                                difference[targetNode.Symbol][targetNode.Property] = new JArray(value, second?[property]);
-                            }
+                            difference[targetNode.Symbol][targetNode.Property] = CreateOriginalAndNewElement(value, second?[property], showValues);
 
                         }
                         else
                         {
-                            difference[targetNode.Symbol] = (showValues == ShowValuesOptions.Original) ? value : second?[property];
-
-                            if (showValues == ShowValuesOptions.Original)
-                            {
-                                difference[targetNode.Symbol] = new JArray(value);
-                            }
-                            else if (showValues == ShowValuesOptions.New)
-                            {
-                                difference[targetNode.Symbol] = new JArray(second?[property]);
-                            }
-                            else
-                            {
-                                difference[targetNode.Symbol] = new JArray(value, second?[property]);
-                            }
+                            //difference[targetNode.Symbol] = (showValues == ShowValuesOptions.Original) ? value : second?[property];
+                            difference[targetNode.Symbol] = CreateOriginalAndNewElement(value, second?[property], showValues);
                         }
                     }
 
@@ -256,5 +233,22 @@ namespace JsonDiffer
         {
             return Differentiate(first, second, this.OutputMode, this.ShowValues);
         }
+    
+        private static JObject CreateOriginalAndNewElement(JToken first, JToken second, ShowValuesOptions showValues)
+        {
+            JObject result = new JObject();
+            if(showValues == ShowValuesOptions.Original || showValues == ShowValuesOptions.OriginalAndNew)
+            {
+                result.Add("original", first);
+            }
+
+            if (showValues == ShowValuesOptions.New || showValues == ShowValuesOptions.OriginalAndNew)
+            {
+                result.Add("new", second);
+            }
+
+            return result;
+        }
+    
     }
 }
