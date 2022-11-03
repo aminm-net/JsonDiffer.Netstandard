@@ -1,5 +1,5 @@
 # JsonDiffer.NetStandard
-A lightweight utility to compare JSON objects and hence practically any serialize-able entity. This utility comes with two distincrt object models, adhoc and detailed.
+A lightweight utility to compare JSON objects and hence practically any serialize-able entity. This utility comes with two distinct object models, adhoc and detailed.
 
 * Adhoc object model shows diffrences with "*" for changed properties "-" and "+" for removed and added ones respectively.
 * Detailed object models groups changes in three properties: changed, added and removed.
@@ -52,7 +52,7 @@ Shows diffrences with "*" for changed properties "-" and "+" for removed and add
 {
   "-age": 30,
   "*cars": {
-    "*car3": "Fiat",
+    "*car3": {"new": "Audi"},
     "+car4": "Jaguar"
   }
 }
@@ -64,7 +64,7 @@ Shows diffrences with "*" for changed properties "-" and "+" for removed and add
  var j1 = JToken.Parse(Read(json1));
  var j2 = JToken.Parse(Read(json2));
  
- var diff = JsonDifferentiator.Differentiate(j1,j2, showOriginalValues: true);
+ var diff = JsonDifferentiator.Differentiate(j1,j2, showValues: ShowValuesOptions.Original);
  
 ```
 
@@ -74,7 +74,31 @@ Shows diffrences with "*" for changed properties "-" and "+" for removed and add
 {
   "-age": 30,
   "*cars": {
-    "*car3": "Audi",
+    "*car3": {"original": "Fiat"},
+    "+car4": "Jaguar"
+  }
+}
+
+
+```
+
+## Usage 3
+```csharp
+
+ var j1 = JToken.Parse(Read(json1));
+ var j2 = JToken.Parse(Read(json2));
+ 
+ var diff = JsonDifferentiator.Differentiate(j1,j2, showValues: ShowValuesOptions.OriginalAndNew);
+ 
+```
+
+
+## Result 
+```javascript
+{
+  "-age": 30,
+  "*cars": {
+    "*car3": {"original": "Fiat", "new": "Audi"},
     "+car4": "Jaguar"
   }
 }
@@ -94,7 +118,7 @@ Given the same json samples:
  var j1 = JToken.Parse(Read(json1));
  var j2 = JToken.Parse(Read(json2));
  
- var diff = JsonDifferentiator.Differentiate(j1,j2, outputMode = OutputMode.Detailed);
+ var diff = JsonDifferentiator.Differentiate(j1,j2, outputMode: OutputMode.Detailed);
  
 ```
 
@@ -107,7 +131,7 @@ Given the same json samples:
   "changed": {
     "cars": {
       "changed": {
-        "car3": "Fiat"
+        "car3": {"new": "Audi"}
       },
       "added": {
         "car4": "Jaguar"
@@ -123,7 +147,7 @@ Given the same json samples:
  var j1 = JToken.Parse(Read(json1));
  var j2 = JToken.Parse(Read(json2));
  
- var diff = JsonDifferentiator.Differentiate(j1,j2, outputMode = OutputMode.Detailed, showOriginalValues: true);
+ var diff = JsonDifferentiator.Differentiate(j1,j2, outputMode: OutputMode.Detailed, showValues: ShowValuesOptions.Original);
  
 ```
 
@@ -136,7 +160,36 @@ Given the same json samples:
   "changed": {
     "cars": {
       "changed": {
-        "car3": "Audi"
+        "car3": {"original": "Fiat"}
+      },
+      "added": {
+        "car4": "Jaguar"
+      }
+    }
+  }
+}
+```
+
+### Example 3
+```csharp
+
+ var j1 = JToken.Parse(Read(json1));
+ var j2 = JToken.Parse(Read(json2));
+ 
+ var diff = JsonDifferentiator.Differentiate(j1,j2, outputMode: OutputMode.Detailed, showValues: ShowValuesOptions.OriginalAndNew);
+ 
+```
+
+### Result 
+```javascript
+{
+  "removed": {
+    "age": 30
+  },
+  "changed": {
+    "cars": {
+      "changed": {
+        "car3": {"original": "Fiat", "new": "Audi"}
       },
       "added": {
         "car4": "Jaguar"
@@ -152,7 +205,7 @@ Given the same json samples:
  var j1 = JToken.Parse(Read(json1));
  var j2 = JToken.Parse(Read(json2));
  
- var differentiator = new JsonDifferentiator(OutputMode outputMode: OutputMode.Symbol, showOriginalValues: false);
+ var differentiator = new JsonDifferentiator(outputMode: OutputMode.Symbol, showValues: ShowValuesOptions.New);
  var diff = differentiator.Differentiate(j1,j2);
  
 ```
@@ -166,7 +219,7 @@ Given the same json samples:
   "changed": {
     "cars": {
       "changed": {
-        "car3": "Fiat"
+        "car3": {"new": "Audi"}
       },
       "added": {
         "car4": "Jaguar"
